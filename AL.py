@@ -2,7 +2,7 @@ import re
 import copy as cp
 from extrafuns import *
 
-n = r"^[0-9]*$(\.[0-9]*)?"
+n = r"^[0-9]+(\.[0-9]*)?$"
 v = r"^[a-z|A-Z]([a-z|A-Z|0-9]*)$"
 o = r"^\=$"
 s = r'^"(?:[^\\]|(?:\\.))*"'
