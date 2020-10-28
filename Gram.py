@@ -19,38 +19,50 @@ class Gram:
         self.terminales["("] = "("
         self.terminales[")"] = ")"
         self.terminales["$"] = "$"
-        self.terminales["$"] = "$"
         self.terminales[","] = ","
         self.terminales["."] = "."
         #No Terminales
         self.noterminales["E"] = "E"
+        self.noterminales["Ep"] = "Ep"
         self.noterminales["As"] = "As"
-        self.noterminales["C"] = "C"
+        self.noterminales["Idt"] = "Idt"
         self.noterminales["St"] = "St"
         self.noterminales["Fn"] = "Fn"
-        self.noterminales["Fnp"] = "Fnp"
         self.noterminales["MAs"] = "MAs"
         self.noterminales["MAsp"] = "MAs"
-        self.noterminales("T") = "T"
+        self.noterminales["SAs"] = "SAs"
+        self.noterminales["T"]= "T"
 
         #Producciones
-        self.Producciones.append(Produccion("E", ["As"]))
-        self.Producciones.append(Produccion("E", ["St"]))
-        self.Producciones.append(Produccion("As", ["id", "=", "C"]))
-        self.Producciones.append(Produccion("As", ["id", "=", St]))
-        self.Producciones.append(Produccion("As", ["id", "=", "T"]))
-        self.Producciones.append(Produccion("C", ["id", "(", "MAs", ")", "Fn"]))
-        self.Producciones.append(Produccion("St", ["id", "Fn"]))
-        self.Producciones.append(Produccion("Fn", [".", "id", "(", "MAs", ")", "Fnp"]))
-        self.Producciones.append(Produccion("Fnp", ["Fn"]))
-        self.Producciones.append(Produccion("Fnp", ["$"]))
+        #E
+        self.Producciones.append(Produccion("E", ["id", "Ep"]))
+        #Ep
+        self.Producciones.append(Produccion("Ep", ["As"]))
+        self.Producciones.append(Produccion("Ep", ["Fn"]))
+        #As
+        self.Producciones.append(Produccion("As", ["=", "Idt"]))
+        #Idt
+        self.Producciones.append(Produccion("Idt", ["id", "St"]))
+        self.Producciones.append(Produccion("Idt", ["T"]))
+        #St
+        self.Producciones.append(Produccion("St", ["(", "MAs", ")", "Fn"]))
+        self.Producciones.append(Produccion("St", ["Fn"]))
+        #Fn
+        self.Producciones.append(Produccion("Fn", [".", "id", "(", "MAs", ")", "Fn"]))
+        self.Producciones.append(Produccion("Fn", ["$"]))
+        #MAs
         self.Producciones.append(Produccion("MAs", ["T", "MAsp"]))
-        self.Producciones.append(Produccion("MAs", ["As", "MAsp"]))
+        self.Producciones.append(Produccion("MAs", ["id", "SAs", "MAsp"]))
+        #MAsp
         self.Producciones.append(Produccion("MAsp", [",", "MAs"]))
         self.Producciones.append(Produccion("MAsp", ["$"]))
-        self.Producciones.append(Produccion("T", ["id"]))
+        #SAs
+        self.Producciones.append(Produccion("SAs", ["As"]))
+        self.Producciones.append(Produccion("SAs", ["$"]))
+        #T
         self.Producciones.append(Produccion("T", ["Numero"]))
         self.Producciones.append(Produccion("T", ["String"]))
+
 
     def get_item(self, noterminal):
         answer = []
