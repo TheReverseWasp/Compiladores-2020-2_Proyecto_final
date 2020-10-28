@@ -71,31 +71,30 @@ class TAS:
                     val = tokens[nsit].tipo
                 else:
                     val = tokens[nsit].palabra
-                if len(q)  in self.gram.noterminales:
-                    if it == 0:
-                        if val in self.TAS[ns]:
-                            #replace
-                            q.append(self.TAS[ns][val].der)
-                            q = flatten(q)
-                        else:
-                            if "$" in self.TAS[ns]:
-                                q.append(self.TAS[ns]["$"].der)
-                                q = flatten(q)
-                            else:
-                                print("Error en la gramatica")
-                                return False
+                if len(q) == 0:
+                    if val in self.TAS[ns]:
+                        #replace
+                        q.append(self.TAS[ns][val].der)
+                        q = flatten(q)
                     else:
-                        if val in self.TAS[ns]:
-                            #replace
-                            q[nsit] = self.TAS[ns][val].der
+                        if "$" in self.TAS[ns]:
+                            q.append(self.TAS[ns]["$"].der)
                             q = flatten(q)
                         else:
-                            if "$" in self.TAS[ns]:
-                                q[nsit] = self.TAS[ns]["$"].der
-                                q = flatten(q)
-                            else:
-                                print("Error en la gramatica")
-                                return False
+                            print("Error en la gramatica")
+                            return False
+                elif q[nsit] in self.gram.noterminales:
+                    if val in self.TAS[ns]:
+                        #replace
+                        q[nsit] = self.TAS[ns][val].der
+                        q = flatten(q)
+                    else:
+                        if "$" in self.TAS[ns]:
+                            q[nsit] = self.TAS[ns]["$"].der
+                            q = flatten(q)
+                        else:
+                            print("Error en la gramatica")
+                            return False
                 if q[nsit] in self.gram.terminales:
                     #Go Ahead
                     if q[nsit] == "$":

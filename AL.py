@@ -31,7 +31,6 @@ def reconocerToken(r, linea, idx, tipo):
         f += 1
         flag = True
     if flag:
-        print(idx, f)
         t = Token(linea[idx:f], tipo, i = idx, f = f)
         return t
     return False
@@ -71,7 +70,7 @@ def reconocerSeparador1(linea, idx):
     return reconocerToken(r, linea, idx, "Separador1")
 
 def reconocerSeparador2(linea, idx):
-    r = re.compile(sep1)
+    r = re.compile(sep2)
     return reconocerToken(r, linea, idx, "Separador2")
 
 def reconocerAgrupacion(linea, idx):
